@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.crypto.SecretKey;
+import java.lang.reflect.Method;
 import java.util.Base64;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -39,7 +40,7 @@ public class JwtTests {
     @Test
     @DisplayName("JwtProvider 객체로 SecretKey 객체를 생성할 수 있다.")
     void t3() {
-        SecretKey secretKey = jwtProvider.getSecretKey();
+        SecretKey secretKey = TestUtil.callMethod(jwtProvider, "getSecretKey");
 
         assertThat(secretKey).isNotNull();
     }
@@ -47,8 +48,8 @@ public class JwtTests {
     @Test
     @DisplayName("SecretKey 객체는 단 한 번만 생성되어야 한다.")
     void t4() {
-        SecretKey secretKey1 = jwtProvider.getSecretKey();
-        SecretKey secretKey2 = jwtProvider.getSecretKey();
+        SecretKey secretKey1 = TestUtil.callMethod(jwtProvider, "getSecretKey");
+        SecretKey secretKey2 = TestUtil.callMethod(jwtProvider, "getSecretKey");
 
         assertThat(secretKey1 == secretKey2).isTrue();
     }
