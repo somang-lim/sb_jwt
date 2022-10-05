@@ -14,7 +14,7 @@ public class Util {
         return (ObjectMapper) AppConfig.getContext().getBean("objectMapper");
     }
 
-    public static class Json {
+    public static class json {
         public static Object toStr(Map<String, Object> map) {
             try {
                 return getObjectMapper().writeValueAsString(map);
